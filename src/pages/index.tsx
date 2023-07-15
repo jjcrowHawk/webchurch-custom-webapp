@@ -16,7 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box sx={{backgroundColor: "#00000088", width: "100%"}}>
-        <h1 style={{marginTop: "40px"}}>
+        <h1>
           Hello Index content
         </h1>
         <p>
