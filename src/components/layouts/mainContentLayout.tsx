@@ -18,7 +18,7 @@ export const MainContentLayout = ({ children }: MainContentLayoutProps) => {
       {/* <main style={{ paddingTop: appBarHeight / 2 }}>
         { children }
       </main> */}
-      <Box component="main" sx={{ pt: { xs: 7, sm: 8 } }}>
+      <Box component="main" sx={{ pt: { xs: 7, sm: 8.5 } }}>
         { children }
       </Box>
     </div>

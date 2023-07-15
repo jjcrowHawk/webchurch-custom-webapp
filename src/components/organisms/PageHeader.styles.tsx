@@ -29,6 +29,9 @@ const styles: { [key: string] : SxProps<Theme>} = {
     color: "#DFDFDF",
     fontFamily: "Libre Franklin",
     fontWeight: "500"
+  },
+  activeLink: {
+    color: "#E4C590"
   }
 }
 
