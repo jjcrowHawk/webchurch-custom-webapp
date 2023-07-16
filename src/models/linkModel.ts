@@ -16,7 +16,7 @@ export interface LinkModel {
 export const WEBPAGE_LINKS: Array<LinkModel> = [
   {
     name: "home",
-    displayName: "",
+    displayName: "INICIO",
     path: LinkPath.HOME,
     isActive: true
   },

@@ -1,16 +1,9 @@
 import {
   Box,
   Button,
-  Divider,
-  Drawer,
   IconButton,
   Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Toolbar,
-  Typography,
   useScrollTrigger,
 } from "@mui/material";
 import Image from "next/image";
@@ -18,27 +11,27 @@ import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import styles from "./PageHeader.styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useTheme, useMediaQuery } from "@mui/material";
-import { getHomeLink, getMenuLinks } from "../../models/linkModel";
-import { ImageResourcesPath } from "../../models/imageResources";
-import { usePathname } from 'next/navigation'
+import { getHomeLink, getMenuLinks } from "../../../models/linkModel";
+import { ImageResourcesPath } from "../../../models/imageResources";
+import { usePathname } from "next/navigation";
+import NavDrawer from "./components/NavDrawer";
+import { useIsMobileScreen } from "../../../utils/hooks/responsiveHooks";
 
 const drawerWidth = 240;
 const homeLink = getHomeLink();
 var navItems = getMenuLinks();
 
 const PageHeader = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const currentPath = usePathname()
+  const isMobile = useIsMobileScreen();
+  const currentPath = usePathname();
   navItems = navItems.map((link) => {
-    link.isActive = link.path == currentPath
-    return link
-  })
-  homeLink.isActive = homeLink.path == currentPath
-  
+    link.isActive = link.path == currentPath;
+    return link;
+  });
+  homeLink.isActive = homeLink.path == currentPath;
+
   const [isSticky, setIsSticky] = useState(false);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
@@ -58,38 +51,20 @@ const PageHeader = () => {
 
   useEffect(() => {
     navItems = navItems.map((link) => {
-      link.isActive = link.path == currentPath
-      return link
-    })
-    homeLink.isActive = homeLink.path == currentPath
-  }, [currentPath])
+      link.isActive = link.path == currentPath;
+      return link;
+    });
+    homeLink.isActive = homeLink.path == currentPath;
+  }, [currentPath]);
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+    setIsNavDrawerOpen((prevState) => !prevState);
   };
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
   });
-
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item.name} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item.displayName} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
 
   return (
     <>
@@ -127,7 +102,14 @@ const PageHeader = () => {
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" }, mr: 8 }}>
             {navItems.map((item) => (
-              <Button key={item.name} sx={{...styles.navLink, ...(item.isActive ? styles.activeLink : {} )}} href={item.path}>
+              <Button
+                key={item.name}
+                sx={{
+                  ...styles.navLink,
+                  ...(item.isActive ? styles.activeLink : {}),
+                }}
+                href={item.path}
+              >
                 {item.displayName}
               </Button>
             ))}
@@ -135,23 +117,12 @@ const PageHeader = () => {
         </Toolbar>
       </AppBar>
       <Box component="nav">
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
+        <NavDrawer
+          isOpen={isNavDrawerOpen}
+          drawerWidth={drawerWidth}
+          onDrawerToggle={handleDrawerToggle}
+          navLinks={[homeLink, ...navItems]}
+        />
       </Box>
     </>
   );

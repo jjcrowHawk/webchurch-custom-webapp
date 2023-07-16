@@ -1,0 +1,8 @@
+export enum ColorResources{
+  PRIMARY = "#3E4750",
+  ACCENT = "#E4C590",
+  WHITE = "#DFDFDF",
+  PRIMARY_TINT1 = "#515961",
+  PRIMARY_TINT2 = "#646b72",
+  PRIMARY_TINT3 = "#777E84"
+}

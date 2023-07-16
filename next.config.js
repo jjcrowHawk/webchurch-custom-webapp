@@ -6,7 +6,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "scontent.fuio7-1.fna.fbcdn.net",
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent.fgye1-1.fna.fbcdn.net',
+      },
     ]
   }
 }

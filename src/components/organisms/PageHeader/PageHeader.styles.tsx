@@ -1,13 +1,9 @@
 import { SxProps, Theme } from "@mui/material"
+import { ColorResources } from "../../../models/colorResources"
 
 const styles: { [key: string] : SxProps<Theme>} = {
-  header: {
-    position: "sticky",
-    zIndex: 100
-  },
-  headerContainer: {backgroundColor: "#000000"},
   appBar: {
-    backgroundColor: '#3E4750',
+    backgroundColor: ColorResources.PRIMARY,
     transition: 'background-color 0.3s ease-in-out',
   },
   appBarSticky: {
@@ -26,12 +22,12 @@ const styles: { [key: string] : SxProps<Theme>} = {
     paddingBottom: { xs: "4px", sm: "4px"}
   },
   navLink: {
-    color: "#DFDFDF",
+    color: ColorResources.WHITE,
     fontFamily: "Libre Franklin",
     fontWeight: "500"
   },
   activeLink: {
-    color: "#E4C590"
+    color: ColorResources.ACCENT
   }
 }
 
