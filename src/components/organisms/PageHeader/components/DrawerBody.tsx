@@ -20,9 +20,12 @@ const styles: { [key: string] : SxProps<Theme>} = {
   },
   drawerItemText: {
     color: ColorResources.WHITE,
+    pb: 2,
   },
   drawerItemSelected: {
-    color: ColorResources.ACCENT
+    color: ColorResources.ACCENT,
+    fontWeight: "bold",
+    textShadow: `-1px 2px 10px ${ColorResources.ACCENT_TINT2}`,
   }
 }
 

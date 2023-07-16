@@ -35,6 +35,11 @@ const styles: { [key: string]: SxProps<Theme> } = {
     color: ColorResources.WHITE,
     fontFamily: "Libre Franklin",
     fontWeight: "500",
+    ":hover": {
+      color: ColorResources.ACCENT_TINT2,
+      textShadow: `-1px 2px 13px ${ColorResources.ACCENT_TINT2}`,
+      // boxShadow: `0 0 5px ${ColorResources.ACCENT}, 0 0 25px ${ColorResources.ACCENT}, 0 0 50px ${ColorResources.ACCENT}, 0 0 200px ${ColorResources.ACCENT}`
+    }
   },
   activeLink: {
     color: ColorResources.ACCENT,
