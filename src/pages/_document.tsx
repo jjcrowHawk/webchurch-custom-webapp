@@ -15,6 +15,8 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
         {/* PWA primary color */}
         {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
         {/* <link rel="shortcut icon" href="/favicon.ico" /> */}
+        <link href="https://fonts.googleapis.com/css?family=Almarai:300,400,500,700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,500,700&display=swap" rel="stylesheet"/>
         <meta name="emotion-insertion-point" content="" />
         {emotionStyleTags}
       </Head>
