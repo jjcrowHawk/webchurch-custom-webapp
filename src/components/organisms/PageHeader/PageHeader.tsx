@@ -4,94 +4,44 @@ import {
   IconButton,
   Link,
   Toolbar,
-  useScrollTrigger,
 } from "@mui/material";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import styles from "./PageHeader.styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import { getHomeLink, getMenuLinks } from "../../../models/linkModel";
 import { ImageResourcesPath } from "../../../models/imageResources";
-import { usePathname } from "next/navigation";
 import NavDrawer from "./components/NavDrawer";
-import { useIsMobileScreen } from "../../../utils/hooks/responsiveHooks";
-
-const drawerWidth = 240;
-const homeLink = getHomeLink();
-var navItems = getMenuLinks();
+import usePageHeaderState from "./components/PageHeader.state";
 
 const PageHeader = () => {
-  const isMobile = useIsMobileScreen();
-  const currentPath = usePathname();
-  navItems = navItems.map((link) => {
-    link.isActive = link.path == currentPath;
-    return link;
-  });
-  homeLink.isActive = homeLink.path == currentPath;
-
-  const [isSticky, setIsSticky] = useState(false);
-  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
-
-  useEffect(() => {
-    function handleScroll() {
-      if (window.scrollY > 0) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    navItems = navItems.map((link) => {
-      link.isActive = link.path == currentPath;
-      return link;
-    });
-    homeLink.isActive = homeLink.path == currentPath;
-  }, [currentPath]);
-
-  const handleDrawerToggle = () => {
-    setIsNavDrawerOpen((prevState) => !prevState);
-  };
-
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
+  const {
+    isMobile,
+    isNavDrawerOpen,
+    hasLeftScreenTop,
+    navDrawerWidth,
+    links,
+    handlers: { handleDrawerToggle },
+  } = usePageHeaderState();
 
   return (
     <>
       <AppBar
         component="nav"
-        sx={trigger ? styles.appBarSticky : styles.appBar}
+        sx={hasLeftScreenTop ? styles.appBarSticky : styles.appBar}
       >
-        <Toolbar sx={trigger ? styles.toolbarSticky : styles.toolbar}>
+        <Toolbar sx={hasLeftScreenTop ? styles.toolbarSticky : styles.toolbar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={styles.drawerButton}
           >
             <MenuIcon />
           </IconButton>
-          <Box
-            sx={{
-              ml: { xs: 0, sm: 6 },
-              mr: { xs: 4, sm: 0 },
-              flexGrow: 1,
-              display: { xs: "flex", sm: "block" },
-              justifyContent: { xs: "center", sm: "none" },
-            }}
-          >
-            <Link href={homeLink.path}>
+          <Box sx={styles.logoContainer}>
+            <Link href={links.home.path}>
               <Image
                 alt="church-logo"
                 width={isMobile ? 120 : 140}
@@ -100,8 +50,8 @@ const PageHeader = () => {
               />
             </Link>
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "block" }, mr: 8 }}>
-            {navItems.map((item) => (
+          <Box sx={styles.menuContainer}>
+            {links.menu.map((item) => (
               <Button
                 key={item.name}
                 sx={{
@@ -119,9 +69,9 @@ const PageHeader = () => {
       <Box component="nav">
         <NavDrawer
           isOpen={isNavDrawerOpen}
-          drawerWidth={drawerWidth}
+          drawerWidth={navDrawerWidth}
           onDrawerToggle={handleDrawerToggle}
-          navLinks={[homeLink, ...navItems]}
+          navLinks={[links.home, ...links.menu]}
         />
       </Box>
     </>
