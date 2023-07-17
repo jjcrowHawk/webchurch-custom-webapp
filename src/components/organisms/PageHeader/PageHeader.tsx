@@ -3,6 +3,8 @@ import {
   Button,
   IconButton,
   Link,
+  SxProps,
+  Theme,
   Toolbar,
 } from "@mui/material";
 import Image from "next/image";
@@ -57,7 +59,7 @@ const PageHeader = () => {
                 sx={{
                   ...styles.navLink,
                   ...(item.isActive ? styles.activeLink : {}),
-                }}
+                } as SxProps<Theme>}
                 href={item.path}
               >
                 {item.displayName}

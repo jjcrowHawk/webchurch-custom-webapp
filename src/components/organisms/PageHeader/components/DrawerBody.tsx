@@ -40,7 +40,7 @@ const DrawerBody: React.FC<DrawerBodyProps> = ({ navLinks, onDrawerToggle}: Draw
       {navLinks.map((item) => (
         <ListItem key={item.name} disablePadding>
           <ListItemButton sx={{ textAlign: "center" }} href={item.path}>
-            <ListItemText primary={item.displayName} sx={{...styles.drawerItemText, ...(item.isActive ? styles.drawerItemSelected : {})}} />
+            <ListItemText primary={item.displayName} sx={{...styles.drawerItemText, ...(item.isActive ? styles.drawerItemSelected : {})} as SxProps<Theme>} />
           </ListItemButton>
         </ListItem>
       ))}

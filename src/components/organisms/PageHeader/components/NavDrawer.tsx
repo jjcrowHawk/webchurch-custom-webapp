@@ -36,7 +36,7 @@ const NavDrawer: React.FC<NavDrawerProps> = ({ isOpen, onDrawerToggle, drawerWid
             "& .MuiDrawer-paper": {
               ...styles.innerDrawerContainer,
               width: drawerWidth
-          }}}
+          }} as SxProps<Theme>}
         >
           <DrawerBody onDrawerToggle={onDrawerToggle} navLinks={navLinks}/>
         </Drawer>
