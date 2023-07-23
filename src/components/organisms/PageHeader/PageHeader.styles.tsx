@@ -1,7 +1,7 @@
-import { SxProps, Theme } from "@mui/material";
 import { ColorResources } from "../../../models/colorResources";
+import { StyleSheet } from "../../../types/StyleSheet";
 
-const styles: { [key: string]: SxProps<Theme> } = {
+const styles: StyleSheet = {
   appBar: {
     backgroundColor: ColorResources.PRIMARY,
     transition: "background-color 0.3s ease-in-out",
@@ -38,7 +38,7 @@ const styles: { [key: string]: SxProps<Theme> } = {
     ":hover": {
       color: ColorResources.ACCENT_TINT2,
       textShadow: `-1px 2px 13px ${ColorResources.ACCENT_TINT2}`,
-    }
+    },
   },
   activeLink: {
     color: ColorResources.ACCENT,
