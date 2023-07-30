@@ -12,7 +12,10 @@ const nextConfig = {
         hostname: 'scontent.fgye1-1.fna.fbcdn.net',
       },
     ]
-  }
+  },
+  publicRuntimeConfig: {
+    staticFolder: '/public',
+  },
 }
 
 module.exports = nextConfig
