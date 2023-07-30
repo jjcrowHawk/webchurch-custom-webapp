@@ -1,14 +1,35 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import { Box, Container, Typography, styled } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Container,
+  Divider,
+  Grid,
+  Typography,
+  styled,
+} from "@mui/material";
 import Hero from "../components/organisms/Hero/Hero";
 import { ColorResources } from "../models/colorResources";
+import { ImageResourcesPath } from "../models/imageResources";
+import useWindowDimensions from "../utils/hooks/useWindowDimensions";
+import { StyleSheet } from "../types/StyleSheet";
+import HomeHero from "../components/organisms/HomeHero/HomeHero";
+import HeroSlider, { ButtonsNav, Nav, SideNav, Slide } from "hero-slider";
+import { useIsMobileScreen } from "../utils/hooks/responsiveHooks";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const styles: StyleSheet = {
+  mainHeroImage: {
+    objectFit: "contain",
+  },
+};
+
 export default function Home() {
+  const { width, height } = useWindowDimensions();
+  const isMobile = useIsMobileScreen();
   return (
     <>
       <Head>
@@ -18,20 +39,47 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box sx={{ backgroundColor: "#00000088", width: "100%" }}>
-        <Hero
-          post={{
-            description: "",
-            imageText: "",
-            linkText: "",
-            title: "",
-            image:
-              "https://scontent.fgye1-1.fna.fbcdn.net/v/t39.30808-6/327439760_908153513693288_36842327819730405_n.png?_nc_cat=109&cb=99be929b-3346023f&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeF5JaIUjPRBJCrmMZOBAlkIXi6TuYKrgpZeLpO5gquClqQttp2lGZmiWlwm8lCJY_Q&_nc_ohc=zxz2yG4bG3oAX9lIJvN&_nc_ht=scontent.fgye1-1.fna&oh=00_AfCXMOQhqnFGSM3g2cni_Ah8VYLOagA2h_rs9lidZtPErg&oe=64B8E465",
-          }}
-        />
-        <Box sx={{ pt: 6, pb: 6, backgroundColor: ColorResources.PRIMARY_TINT1}}>
-          <Typography typography={"h2"} align="center" color={ColorResources.WHITE} fontWeight={400}>
-          Bienvenido a la Iglesia<br/> para las familias
-          </Typography>
+        <HomeHero backgroundImage={ImageResourcesPath.HOME_HERO_IMAGE} />
+        <Divider flexItem sx={{ height: "3px" }} />
+        <Box>
+          <HeroSlider
+            height="87vh"
+            autoplay={{
+              autoplayDuration: 5000,
+              autoplayDebounce: 0,
+            }}
+            controller={{
+              initialSlide: 1,
+              slidingDuration: 400,
+              slidingDelay: 15,
+              onSliding: (nextSlide: number) =>
+                console.debug("onSliding(nextSlide): ", nextSlide),
+            }}
+          >
+            <Slide
+              background={{
+                backgroundImageStyle: { objectFit: "fill" },
+                backgroundImageSrc:
+                  "https://scontent.fgye12-1.fna.fbcdn.net/v/t39.30808-6/362260962_590445669931575_3467585443350108682_n.jpg?_nc_cat=102&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHiyEeMN4F2XCPJeLnarIMIHLxaGWs4LOYcvFoZazgs5vy_EzafVRycWsQxY5eEV8s&_nc_ohc=tKFCot_OHZMAX-Typ-i&_nc_ht=scontent.fgye12-1.fna&oh=00_AfARyAlPh5JPZHcVEyBaJpzeGHajLpcAINDhiFhQhoPYgw&oe=64C9FED4",
+              }}
+            ></Slide>
+            <Slide
+              background={{
+                backgroundImageStyle: { objectFit: "fill" },
+                backgroundImageSrc:
+                  "https://scontent.fgye12-1.fna.fbcdn.net/v/t39.30808-6/362946278_588454696797339_1094590100023443027_n.jpg?_nc_cat=107&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeGm2LWkS8s_syFqdA1FSZVF7jSAh3kKqynuNICHeQqrKengsnaoxVjjMjD4_jPCchs&_nc_ohc=n-ypMqmlIDgAX9QHjFS&_nc_ht=scontent.fgye12-1.fna&oh=00_AfDAPZX2Hx6iBIt-eGluxQ9rxO4TNvjnl9sM3VRzcy5v0g&oe=64CB4EF8",
+              }}
+            ></Slide>
+            <Slide
+              background={{
+                backgroundImageStyle: { objectFit: "fill" },
+                backgroundImageSrc:
+                  "https://scontent.fgye12-1.fna.fbcdn.net/v/t39.30808-6/362272422_591050556537753_7736954627397885001_n.jpg?_nc_cat=101&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeHVeTQEKa-BKVhvjEb3e2RrIBGrFS4-EKMgEasVLj4Qo_Il_LjxpA_JYwDBYYMGl5w&_nc_ohc=55OP6dbske8AX-vJfWb&_nc_ht=scontent.fgye12-1.fna&oh=00_AfDft18nZTZ-ux_CJYbxxBKnJI0KIb8FGxC6yvmmqsW9VA&oe=64CA6B95",
+              }}
+            ></Slide>
+            {isMobile && <ButtonsNav backgroundColor="red" />}
+          </HeroSlider>
+          <Divider flexItem sx={{ height: "3px" }} />
         </Box>
       </Box>
     </>
